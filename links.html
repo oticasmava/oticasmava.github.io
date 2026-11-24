@@ -37,6 +37,16 @@ h2{font-size:15px;font-weight:700;margin:22px 4px 10px;color:var(--blue)}
 .hours{font-size:13px;opacity:.75;margin:10px 2px 0}
 .ig{background:var(--card);border:1.5px solid var(--line);color:var(--ink)}
 footer{text-align:center;font-size:13px;opacity:.65;padding:10px 16px 28px}
+</style><style id="askcss">
+.ask{position:fixed;inset:0;background:rgba(3,5,58,.55);display:none;align-items:flex-end;justify-content:center;z-index:9999;padding:16px}
+.ask.open{display:flex}
+.ask .box{background:#fff;border-radius:22px;width:100%;max-width:380px;padding:22px 18px 16px;box-shadow:0 20px 50px rgba(0,0,40,.35);font-family:inherit;color:#0A0E33}
+@media(min-width:600px){.ask{align-items:center}}
+.ask h3{margin:0 0 4px;font-size:19px;color:#00006B}
+.ask p{margin:0 0 14px;font-size:14px;color:#4A5278}
+.ask a{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px;margin-bottom:10px;border-radius:14px;background:#0000FF;color:#fff;text-decoration:none;font-weight:700;font-size:16px}
+.ask a span{font-weight:500;font-size:13px;opacity:.9}
+.ask button{width:100%;padding:10px;border:0;background:none;color:#4A5278;font:inherit;font-size:14px;cursor:pointer}
 </style></head><body>
 <header class="hero">
 <img class="logo" alt="Logo Óticas Mava" src="/logo.png">
@@ -44,7 +54,7 @@ footer{text-align:center;font-size:13px;opacity:.65;padding:10px 16px 28px}
 <p class="sub">Óculos de grau e de sol em Santana e Macapá</p>
 </header>
 <main>
-<a class="promo" id="promo" href="https://wa.me/5596981167310?text=Ol%C3%A1%21%20Quero%20aproveitar%20a%20Blue%20Friday%20Mava.">
+<a data-ask class="promo" id="promo" href="https://wa.me/5596981167310?text=Ol%C3%A1%21%20Quero%20aproveitar%20a%20Blue%20Friday%20Mava.">
 <b>Blue Friday Mava · 30% no óculos completo</b>
 <span>Armação + lentes de grau, até 30/11. Toque e fale com a gente.</span>
 <small>À vista ou no cartão de crédito. Não válida para crediário.</small>
@@ -67,4 +77,16 @@ footer{text-align:center;font-size:13px;opacity:.65;padding:10px 16px 28px}
 </main>
 <footer>Óticas Mava · desde 2022 no Amapá</footer>
 <script>{const p=document.getElementById('promo');if(new Date()>new Date('2026-12-01T03:00:00Z'))p.remove();}</script>
+<div class="ask" id="ask" role="dialog" aria-modal="true" aria-labelledby="askT"><div class="box">
+<h3 id="askT">Com qual loja tu quer falar?</h3><p>Escolhe a loja mais perto de ti.</p>
+<a id="askS" href="#" target="_blank" rel="noopener">Santana<span>(96) 98116-7310</span></a>
+<a id="askM" href="#" target="_blank" rel="noopener">Macapá<span>(96) 98430-5256</span></a>
+<button type="button" id="askX">Fechar</button></div></div>
+<script>{const d=document.getElementById('ask'),S=document.getElementById('askS'),M=document.getElementById('askM');
+const close=()=>d.classList.remove('open');
+document.addEventListener('click',e=>{const a=e.target.closest('a[data-ask]');if(!a)return;e.preventDefault();
+let t='';try{t=new URL(a.href).searchParams.get('text')||''}catch(_){}
+const q=t?'?text='+encodeURIComponent(t):'';S.href='https://wa.me/5596981167310'+q;M.href='https://wa.me/5596984305256'+q;d.classList.add('open');S.focus();});
+S.addEventListener('click',close);M.addEventListener('click',close);document.getElementById('askX').onclick=close;
+d.addEventListener('click',e=>{if(e.target===d)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});}</script>
 </body></html>
