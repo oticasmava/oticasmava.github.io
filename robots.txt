@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://oticasmava.com.br/sitemap.xml
